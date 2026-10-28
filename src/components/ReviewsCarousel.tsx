@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { business } from "@/lib/business";
 import { reviews } from "@/lib/reviews";
+import GoogleReviewBadge, { GoogleG } from "./GoogleReviewBadge";
 import { ArrowLeft, ArrowRight, Star } from "./icons";
 
 const buttonClass =
@@ -83,11 +84,15 @@ export default function ReviewsCarousel() {
 
   return (
     <div>
-      <div className="flex flex-wrap items-end justify-between gap-4">
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm text-ink/60">What our customers say on Google</p>
-          <div className="mt-2 flex items-center gap-3">
-            <span className="text-3xl font-semibold sm:text-4xl">{business.rating}</span>
+          <p className="text-sm font-medium text-copper">Google Reviews</p>
+          <h2 className="mt-2 text-3xl font-semibold leading-tight sm:text-4xl">
+            What Our Customers Say
+          </h2>
+          <div className="mt-4 flex items-center gap-3">
+            <GoogleG size={30} />
+            <span className="text-3xl font-semibold">{business.rating}</span>
             <div>
               <div className="flex text-amber-500">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -104,6 +109,54 @@ export default function ReviewsCarousel() {
               </a>
             </div>
           </div>
+        </div>
+        <GoogleReviewBadge />
+      </div>
+
+      <div
+        ref={track}
+        className="-mx-5 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 [scrollbar-width:none] sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:mx-0 lg:scroll-px-0 lg:px-0 [&::-webkit-scrollbar]:hidden"
+      >
+        {reviews.map((r, i) => (
+          <article
+            key={i}
+            className="flex w-[85%] shrink-0 snap-start flex-col rounded-2xl bg-white p-6 shadow-sm sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)]"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex text-amber-500">
+                {Array.from({ length: r.rating }).map((_, s) => (
+                  <Star key={s} width={14} height={14} />
+                ))}
+              </div>
+              <GoogleG size={18} />
+            </div>
+            <ReviewText text={r.text} />
+            <div className="mt-5 flex items-center gap-3 border-t border-ink/10 pt-4">
+              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-ink text-sm font-semibold text-white">
+                {r.name === "Google Reviewer" ? "G" : initials(r.name)}
+              </span>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold">{r.name}</p>
+                <p className="text-xs text-ink/50">
+                  {[r.meta, r.date].filter(Boolean).join(" · ") || "Verified Google review"}
+                </p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="mt-6 flex items-center justify-between gap-4">
+        <div className="flex gap-1.5">
+          {reviews.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => scrollTo(i)}
+              aria-label={`Go to review ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all ${i === active ? "w-6 bg-copper" : "w-1.5 bg-ink/20"}`}
+            />
+          ))}
         </div>
         <div className="flex gap-2">
           <button
@@ -125,48 +178,6 @@ export default function ReviewsCarousel() {
             <ArrowRight width={16} height={16} />
           </button>
         </div>
-      </div>
-
-      <div
-        ref={track}
-        className="-mx-5 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 [scrollbar-width:none] sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:mx-0 lg:scroll-px-0 lg:px-0 [&::-webkit-scrollbar]:hidden"
-      >
-        {reviews.map((r, i) => (
-            <article
-              key={i}
-              className="flex w-[85%] shrink-0 snap-start flex-col rounded-2xl bg-white p-6 shadow-sm sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)]"
-            >
-              <div className="flex text-amber-500">
-                {Array.from({ length: r.rating }).map((_, s) => (
-                  <Star key={s} width={14} height={14} />
-                ))}
-              </div>
-              <ReviewText text={r.text} />
-              <div className="mt-5 flex items-center gap-3 border-t border-ink/10 pt-4">
-                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-ink text-sm font-semibold text-white">
-                  {r.name === "Google Reviewer" ? "G" : initials(r.name)}
-                </span>
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold">{r.name}</p>
-                  <p className="text-xs text-ink/50">
-                    {[r.meta, r.date].filter(Boolean).join(" · ") || "Verified Google review"}
-                  </p>
-                </div>
-              </div>
-            </article>
-        ))}
-      </div>
-
-      <div className="mt-5 flex justify-center gap-1.5">
-        {reviews.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => scrollTo(i)}
-            aria-label={`Go to review ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all ${i === active ? "w-6 bg-copper" : "w-1.5 bg-ink/20"}`}
-          />
-        ))}
       </div>
     </div>
   );

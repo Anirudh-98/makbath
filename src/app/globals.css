@@ -9,10 +9,6 @@
   --color-copper-dark: #87512f;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 section[id] {
   scroll-margin-top: 96px;
 }

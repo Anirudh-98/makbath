@@ -77,7 +77,16 @@ export const WhatsApp = (p: IconProps) => (
 );
 
 export const Logo = (p: IconProps) => (
-  <svg width={34} height={34} viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth={1.6} aria-hidden {...p}>
+  <svg
+    width={34}
+    height={34}
+    viewBox="0 0 40 40"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={1.6}
+    aria-hidden
+    {...p}
+  >
     <path d="M20 3v9" />
     <path d="M8 12h24" />
     <path d="M11 12v6M20 12v6M29 12v6" />

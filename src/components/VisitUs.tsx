@@ -1,18 +1,21 @@
 import Image from "next/image";
 import { business, enquiryLink, fullAddress } from "@/lib/business";
 import { ArrowUpRight, Clock, MapPin, Phone, Star, WhatsApp } from "./icons";
+import { ImageReveal, Reveal, Stagger, StaggerItem } from "./motion/Reveal";
 
 export default function VisitUs() {
   return (
     <section id="visit" className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
         <div>
-          <p className="text-sm font-medium text-copper">Visit our showroom</p>
-          <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
-            See, Touch &amp; Compare Before You Choose.
-          </h2>
+          <Reveal>
+            <p className="text-sm font-medium text-copper">Visit our showroom</p>
+            <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
+              See, Touch &amp; Compare Before You Choose.
+            </h2>
+          </Reveal>
 
-          <div className="relative mt-8 aspect-[4/3] overflow-hidden rounded-2xl">
+          <ImageReveal className="relative mt-8 aspect-[4/3] rounded-2xl">
             <Image
               src="/images/storefront.webp"
               alt="MAK Bath & Lights storefront in Troop Bazaar, Abids"
@@ -20,11 +23,11 @@ export default function VisitUs() {
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
             />
-          </div>
+          </ImageReveal>
         </div>
 
-        <div className="flex flex-col gap-4">
-          <div className="rounded-2xl bg-cream p-6">
+        <Stagger className="flex flex-col gap-4">
+          <StaggerItem className="rounded-2xl bg-cream p-6">
             <div className="flex items-start gap-4">
               <span className="grid size-10 shrink-0 place-items-center rounded-full bg-ink text-white">
                 <MapPin />
@@ -46,15 +49,18 @@ export default function VisitUs() {
                 </a>
               </div>
             </div>
-          </div>
+          </StaggerItem>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <StaggerItem className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-2xl bg-cream p-6">
               <span className="grid size-10 place-items-center rounded-full bg-ink text-white">
                 <Phone />
               </span>
               <h3 className="mt-4 font-semibold">Call Us</h3>
-              <a href={business.phoneHref} className="mt-1 block text-sm text-ink/70 hover:text-copper">
+              <a
+                href={business.phoneHref}
+                className="mt-1 block text-sm text-ink/70 hover:text-copper"
+              >
                 {business.phoneDisplay}
               </a>
             </div>
@@ -72,9 +78,9 @@ export default function VisitUs() {
                 ))}
               </dl>
             </div>
-          </div>
+          </StaggerItem>
 
-          <div className="flex items-center gap-3 rounded-2xl bg-cream px-6 py-4 text-sm">
+          <StaggerItem className="flex items-center gap-3 rounded-2xl bg-cream px-6 py-4 text-sm">
             <span className="flex text-amber-500">
               <Star width={16} height={16} />
             </span>
@@ -89,9 +95,9 @@ export default function VisitUs() {
             >
               View
             </a>
-          </div>
+          </StaggerItem>
 
-          <div className="min-h-64 flex-1 overflow-hidden rounded-2xl border border-ink/10">
+          <StaggerItem className="min-h-64 flex-1 overflow-hidden rounded-2xl border border-ink/10">
             <iframe
               title="MAK Bath & Lights on Google Maps"
               src={business.mapEmbedUrl}
@@ -99,9 +105,9 @@ export default function VisitUs() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
-          </div>
+          </StaggerItem>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <StaggerItem className="flex flex-col gap-3 sm:flex-row">
             <a
               href={business.phoneHref}
               className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-ink py-3 text-sm font-semibold text-white transition hover:bg-ink/85"
@@ -116,8 +122,8 @@ export default function VisitUs() {
             >
               <WhatsApp width={16} height={16} /> WhatsApp Us
             </a>
-          </div>
-        </div>
+          </StaggerItem>
+        </Stagger>
       </div>
     </section>
   );

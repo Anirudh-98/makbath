@@ -3,11 +3,18 @@
 import Image from "next/image";
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "./icons";
+import { ImageReveal } from "./motion/Reveal";
 
 const slides = [
   { src: "/images/about.webp", alt: "Crystal chandeliers and globe pendants in a luxury lounge" },
-  { src: "/images/store-lights.webp", alt: "Wall lights and ring chandeliers on display at MAK Bath & Lights" },
-  { src: "/images/store-basins.webp", alt: "Designer wash basins at the MAK Bath & Lights showroom" },
+  {
+    src: "/images/store-lights.webp",
+    alt: "Wall lights and ring chandeliers on display at MAK Bath & Lights",
+  },
+  {
+    src: "/images/store-basins.webp",
+    alt: "Designer wash basins at the MAK Bath & Lights showroom",
+  },
   { src: "/images/store-lanterns.webp", alt: "Outdoor lanterns and gate lights on display" },
 ];
 
@@ -25,15 +32,25 @@ export default function StoreCarousel() {
           {String(index + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
         </span>
         <div className="flex gap-2">
-          <button type="button" onClick={() => step(-1)} aria-label="Previous image" className={buttonClass}>
+          <button
+            type="button"
+            onClick={() => step(-1)}
+            aria-label="Previous image"
+            className={buttonClass}
+          >
             <ArrowLeft width={16} height={16} />
           </button>
-          <button type="button" onClick={() => step(1)} aria-label="Next image" className={buttonClass}>
+          <button
+            type="button"
+            onClick={() => step(1)}
+            aria-label="Next image"
+            className={buttonClass}
+          >
             <ArrowRight width={16} height={16} />
           </button>
         </div>
       </div>
-      <div className="relative aspect-[3/2] overflow-hidden rounded-2xl bg-sand">
+      <ImageReveal className="relative aspect-[3/2] rounded-2xl bg-sand">
         {slides.map((s, i) => (
           <Image
             key={s.src}
@@ -41,10 +58,11 @@ export default function StoreCarousel() {
             alt={s.alt}
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"
+            loading={i === 0 ? "eager" : "lazy"}
             className={`object-cover transition-opacity duration-700 ${i === index ? "opacity-100" : "opacity-0"}`}
           />
         ))}
-      </div>
+      </ImageReveal>
     </div>
   );
 }

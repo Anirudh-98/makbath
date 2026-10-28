@@ -15,6 +15,7 @@ export const business = {
   },
   geo: { lat: 17.3852098, lng: 78.4767494 },
   mapsUrl: "https://maps.app.goo.gl/1nr2xA62cnyrzYy6A",
+  writeReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJTTeIznKZyzsRZFGLhbTrqOA",
   directionsUrl:
     "https://www.google.com/maps/dir/?api=1&destination=17.3852098,78.4767494",
   mapEmbedUrl:

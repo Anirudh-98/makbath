@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { business, enquiryLink, fullAddress } from "@/lib/business";
 import { ArrowUpRight, Logo } from "./icons";
+import { Reveal } from "./motion/Reveal";
 
 const columns = [
   {
@@ -30,7 +31,7 @@ export default function Footer() {
         <Image src="/images/about.webp" alt="" fill sizes="100vw" className="-z-10 object-cover" />
         <div className="absolute inset-0 -z-10 bg-ink/90" />
 
-        <div className="mx-auto max-w-7xl px-5 pb-8 pt-14 text-white sm:px-8 sm:pt-20">
+        <Reveal className="mx-auto max-w-7xl px-5 pb-8 pt-14 text-white sm:px-8 sm:pt-20">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1.3fr_1.6fr]">
             {columns.map((col) => (
               <div key={col.title}>
@@ -87,13 +88,15 @@ export default function Footer() {
           <div className="mt-14 flex flex-col gap-4 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2">
               <Logo />
-              <span className="text-xl font-extrabold tracking-wide sm:text-2xl">MAK BATH &amp; LIGHTS</span>
+              <span className="text-xl font-extrabold tracking-wide sm:text-2xl">
+                MAK BATH &amp; LIGHTS
+              </span>
             </div>
             <p className="text-xs text-white/50">
               © {business.name} · {business.tagline} · Troop Bazaar, Abids, Hyderabad
             </p>
           </div>
-        </div>
+        </Reveal>
       </div>
     </footer>
   );

@@ -1,5 +1,7 @@
 "use client";
 
+import { useLenis } from "lenis/react";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { business } from "@/lib/business";
@@ -17,16 +19,25 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const lenis = useLenis();
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    if (open) lenis?.stop();
+    else lenis?.start();
     return () => {
       document.body.style.overflow = "";
+      lenis?.start();
     };
-  }, [open]);
+  }, [open, lenis]);
 
   return (
-    <header className="fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-6">
+    <motion.header
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-6"
+    >
       <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-2xl bg-white/95 px-4 py-2.5 shadow-lg shadow-black/10 backdrop-blur sm:px-6">
         <Link href="#home" className="flex items-center gap-2 text-ink">
           <Logo />
@@ -93,6 +104,6 @@ export default function Navbar() {
           </a>
         </div>
       )}
-    </header>
+    </motion.header>
   );
 }
